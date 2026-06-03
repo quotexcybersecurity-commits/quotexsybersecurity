@@ -8,19 +8,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // MongoDB Connection
-mongoose.connect('mongodb+srv://quotexcybersecurity_db_user:BEK48xehlgW7ps5h@cluster0.1yqczmw.mongodb.net/quotex?retryWrites=true&w=majority&appName=Cluster0')
+mongoose.connect('mongodb+srv://quotexcybersecurity_db_user:YOURPASSWORD@cluster0.1yqczmw.mongodb.net/quotex?retryWrites=true&w=majority&appName=Cluster0')
   .then(() => {
     console.log('MongoDB connected');
   })
-  .catch((err) => {
-    console.error('MongoDB connection error:', err);
-  });  mongoose.connect('mongodb+srv://quotexcybersecurity_db_user:YOURPASSWORD@cluster0.1yqczmw.mongodb.net/quotex?retryWrites=true&w=majority&appName=Cluster0')
-  .then(() => {
-    console.log('MongoDB connected');
-  })
-  .catch((err) => {
-    console.error('MongoDB connection error:', err);
-  });
 // Schema
 const logSchema = new mongoose.Schema({
   email: String,
