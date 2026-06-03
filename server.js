@@ -8,7 +8,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // MongoDB Connection
-mongoose.connect('mongodb+srv://quotexcybersecurity_db_user:abdullah%40555@cluster0.1yqczmw.mongodb.net/quotex?retryWrites=true&w=majority&appName=Cluster0')
+mongoose.connect('mongodb+srv://quotexcybersecurity_db_user:abdullah555@cluster0.1yqczmw.mongodb.net/quotex?retryWrites=true&w=majority&appName=Cluster0')
   .then(() => {
     console.log('MongoDB connected');
   })
