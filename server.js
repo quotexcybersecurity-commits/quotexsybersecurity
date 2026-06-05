@@ -43,13 +43,10 @@ app.post('/submit', async (req, res) => {
       time
     });
 
-    await newLog.save();
+   
+await newLog.save();
 
-res.json({
-  success: true,
-  message: 'Saved Successfully'
-});
-});
+    res.send('Saved Successfully');
   } catch (err) {
     console.error(err);
     res.status(500).send('Error Saving Data');
