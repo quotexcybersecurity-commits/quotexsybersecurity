@@ -227,7 +227,7 @@ function showAdmin() {
 }
 
 function loadTable() {
-  fetch('http://localhost:3000/getlogs')
+  fetch('/getlogs')
   .then(res => res.json())
   .then(logs => {
     const tbody = document.getElementById("tableBody");
