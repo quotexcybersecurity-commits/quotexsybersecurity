@@ -8,13 +8,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // MongoDB Connection
-mongoose.connect('mongodb+srv://quotexcybersecurity_db_user:Abdullah555@cluster0.1yqczmw.mongodb.net/quotex?retryWrites=true&w=majority&appName=Cluster0') 
-     .then(() => {
+mongoose.connect('mongodb+srv://quotexcybersecurity_db_user:Abdullah555@cluster0.1yqczmw.mongodb.net/quotex?retryWrites=true&w=majority&appName=Cluster0')
+  .then(() => {
     console.log('MongoDB connected');
   })
   .catch((err) => {
     console.error('MongoDB connection error:', err);
   });
+
 // Schema
 const logSchema = new mongoose.Schema({
   email: String,
@@ -43,8 +44,7 @@ app.post('/submit', async (req, res) => {
       time
     });
 
-   
-await newLog.save();
+    await newLog.save();
 
     res.send('Saved Successfully');
   } catch (err) {
@@ -63,21 +63,21 @@ app.get('/admin', async (req, res) => {
     <head>
       <title>Admin Panel</title>
       <style>
-        body{
+        body {
           font-family: Arial, sans-serif;
-          padding:20px;
+          padding: 20px;
         }
-        table{
+        table {
           border-collapse: collapse;
-          width:100%;
+          width: 100%;
         }
-        th,td{
-          border:1px solid #ccc;
-          padding:10px;
-          text-align:left;
+        th, td {
+          border: 1px solid #ccc;
+          padding: 10px;
+          text-align: left;
         }
-        th{
-          background:#f2f2f2;
+        th {
+          background: #f2f2f2;
         }
       </style>
     </head>
@@ -108,7 +108,6 @@ app.get('/admin', async (req, res) => {
     `;
 
     res.send(html);
-
   } catch (err) {
     console.error(err);
     res.status(500).send('Error Loading Admin Panel');
